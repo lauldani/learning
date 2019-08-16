@@ -1,0 +1,33 @@
+---
+title: "Degrees over Time"
+author: "Laura Daniel"
+date: "8/16/2019"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Survey of Earned Doctorates
+
+The Survey of Earned Doctorates (SED) is an annual census conducted since 1957 of all individuals receiving a research doctorate from an accredited U.S. institution in a given academic year. The SED is sponsored by the National Center for Science and Engineering Statistics (NCSES) within the National Science Foundation (NSF) and by five other federal agencies: the National Institutes of Health, Department of Education, Department of Agriculture, National Endowment for the Humanities, and National Aeronautics and Space Administration. The SED collects information on the doctoral recipient's educational history, demographic characteristics, and postgraduation plans. Results are used to assess characteristics of the doctoral population and trends in doctoral education and degrees.
+
+
+## Degree's Overtime
+
+```{r pressure}
+## My Plotly Plot
+```{r}
+survey <- read.csv("/Users/daniell2/Downloads/sed17-sr-tab001.csv", stringsAsFactors = FALSE)
+survey$Doctorate.recipients <- gsub(",","", survey$Doctorate.recipients)
+survey$Doctorate.recipients <- as.numeric(survey$Doctorate.recipients)
+survey$Year <- as.ts(survey$Year)
+
+suppressMessages(library(ggplot2))
+suppressMessages(library(plotly))
+g = ggplot(survey, aes(Year, Doctorate.recipients))
+g = g + geom_line()
+suppressMessages(ggplotly(g))
+```
+
