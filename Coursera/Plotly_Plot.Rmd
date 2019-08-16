@@ -1,0 +1,24 @@
+---
+title: "My_Plotly"
+author: "Laura Daniel"
+date: "8/16/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## My Plotly Plot
+```{r}
+survey <- read.csv("/Users/daniell2/Downloads/sed17-sr-tab001.csv", stringsAsFactors = FALSE)
+survey$Doctorate.recipients <- gsub(",","", survey$Doctorate.recipients)
+survey$Doctorate.recipients <- as.numeric(survey$Doctorate.recipients)
+survey$Year <- as.ts(survey$Year)
+
+suppressMessages(library(ggplot2))
+suppressMessages(library(plotly))
+g = ggplot(survey, aes(Year, Doctorate.recipients))
+g = g + geom_line()
+suppressMessages(ggplotly(g))
+```
