@@ -1,0 +1,18 @@
+---
+title: "Plot"
+author: "Laura Daniel"
+date: "8/15/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Notes on Verison Control
+
+Files for Source Tree
+
+- [Commit to a local respository](https://d18ky98rnyall9.cloudfront.net/_8c822b263aa95ef3a50aa1af506c29bf_lab3_1_04a_sourcetree_commit.pdf?Expires=1566000000&Signature=NCjOaeCVj67NSywvS0vxE1QtTx997FO~icdCQQcf4ee2O5HMC0Anr7ixOy388INhwmxdC-9CB~kHQpnp5FmZE1ws-Npatlj6SH6tcIVJsQCg58Q9Nh6AAbbnatOO-XnRHZpqlly4b2qSkfHglLRQD7CMHvfa9jWxxQ5NgjyUo74_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A)
+- [Create a remote repository](https://d18ky98rnyall9.cloudfront.net/_40777140e7f9743022b00814ba95a3db_lab3_1_05_create_remote.pdf?Expires=1566000000&Signature=RBJealf1hdaLA-jAgr0gKIyHtwBBFSX2gT5Qxg~MVAVI38O9LS5wCakw2C94EOd3FTbauCyKwj-i84cCmpedIqztmhwhUtit26z~-p~dQmqjwTQJUTTCo7r3ehJCl1jJHDR79Gcn66PFXCLvaxZuX9zEKEGaG9Ek25-gE93QLJU_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A)
+- [Push to a Remote](https://d18ky98rnyall9.cloudfront.net/_b94768569a0e4b84b60575439fd79245_lab3_1_06a_sourcetree_push.pdf?Expires=1566086400&Signature=BPTtiRfugn5YF2GOWp2QaK0Q6KWa82Uio1~g8Y8Ai7UA7Y2EcjX8tOjQuaz7NsMWufGdT9sTAlQHOfI9lv2YqbmYgzJYDIPiX6fSDPwrRLUZIxxbxdfKON1~EOrAsap~COEWndfelk6sFI9PMJvTsEgotaI5blPbIWlUurBLgPk_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A)
