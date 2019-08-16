@@ -1,1 +1,12 @@
-theme: jekyll-theme-leap-day
+theme: jekyll-theme-minimal
+title: My Git Page
+author: lauldani
+email: lauldani@yahoo.com
+description: > # this means to ignore newlines until "baseurl:"
+  To begin, this site is for me to learn Github and Github Pages
+
+
+# social links
+github_username:  lauldani
+
+show_excerpts: true # set to false to remove excerpts on the homepage
