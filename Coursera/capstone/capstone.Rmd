@@ -1,0 +1,120 @@
+---
+title: "Laura's Capstone Project"
+author: "Laura Daniel"
+date: "8/21/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+suppressMessages(library("tm")) # for text minning
+suppressMessages(library("SnowballC")) # for text stemming
+suppressMessages(library("wordcloud")) # word-clud generation
+suppressMessages(library("RColorBrewer")) # color palettes
+```
+
+## Overview
+
+Throughout John's Hopkins Data Specialization course I have learned many things. I learned how to write R code and functions. I also learned a lot about how to perform statitics in R and how to strucutre data. The course also taught me several different ways to display the data and present it to the world. For this final capstone project in R, I will bring everything together and apply it to natural language processing. 
+
+### About the Data
+The corpora are collected from publicly available sources by a web crawler. Each entry is tagged with the type of entry, based on the type of website where it was collected.
+
+**Read in files**
+```{r read_data, cache=TRUE}
+setwd("Desktop/Data_Specialization/R Programming/capstone/final/")
+## reading in full data
+blog<- readLines("en_US/en_US.blogs.txt", skipNul = TRUE)
+news<- readLines("en_US/en_US.news.txt", skipNul=TRUE)
+twitter <- readLines("en_US/en_US.twitter.txt", skipNul = TRUE)
+
+## Reading in part of the data - will use this to work with.
+
+b<- readLines("en_US/en_US.blogs.txt", n=1000, skipNul = TRUE)
+n<- readLines("en_US/en_US.news.txt", n=1000, skipNul=TRUE)
+t <- readLines("en_US/en_US.twitter.txt", n=1000, skipNul = TRUE)
+
+combined <- c(b, n, t)
+docs <- Corpus(VectorSource(combined))
+```
+ ** Task 1**
+ *Transform, tokenize, and remove words*
+
+```{r}
+## when going back use
+## Transforming Document
+toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
+docs <- tm_map(docs, toSpace, "/")
+docs <- tm_map(docs, toSpace, "@")
+docs <- tm_map(docs, toSpace, "\\")
+docs <- tm_map(docs, toSpace, "\-")
+docs <- tm_map(docs, toSpace, "\\|")
+docs <- tm_map(docs, toSpace, "\"")
+docs <- tm_map(docs, toSpace, "\—")
+docs <- tm_map(docs, toSpace, "\'")
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removeWords, stopwords("english"))
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, stripWhitespace)
+docs <- tm_map(docs, removeWords, c("fuck", "shit")) 
+docs <- tm_map(docs, stemDocument)
+
+token <- Boost_tokenizer(docs) #save this for latter
+```
+ 
+
+#### *Quiz 1*
+```{}
+max(nchar(news))
+max(nchar(blog))
+max(nchar(twitter))
+ 
+love=length(grep("love", twitter))
+hate=length(grep("hate", twitter))
+love/hate 
+
+biostat <- grep("biostats", twitter)
+grep("A computer once beat me at chess, but it was no match for me at kickboxing", twit)
+```
+
+**Task 2**
+Peform explority analysis and understand frequency of word and word pairs
+
+A *term-document matrix* is a table containing the frequency of the words. Column names are words and row names are documents. 
+
+```{r}
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m), decreasing = T)
+d <- data.frame(word=names(v), freq=v)
+head(d,10)
+dim(d)
+sum(d$freq[1:300]) ## approximately 300 words covers 90% of total words used
+```
+
+**Generate Word cloud**
+```{r, fig.height=5}
+set.seed(1234)
+par(mar=c(1,1,1,1))
+wordcloud(words = d$word, freq = d$freq, min.freq = 3,
+          max.words=70, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+```
+
+```{r}
+findFreqTerms(dtm, lowfreq = 51)
+```
+Table: Words that have frequencies >50
+
+*What are the frequencies of 2-grams and 3-grams in the dataset?*
+```{r}
+
+```
+
+
+## Helpful links
+https://en.wikibooks.org/wiki/R_Programming/Text_Processing
+
+*wordcloud*
+http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know
